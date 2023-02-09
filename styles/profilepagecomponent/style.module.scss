@@ -1,0 +1,15 @@
+@import "../uniform";
+
+.container {
+  @include centerDiv(column);
+  height: 75vh;
+  position: absolute;
+  z-index: 10;
+  margin-top: 15vh;
+  overflow-y: scroll;
+  justify-content: flex-start;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

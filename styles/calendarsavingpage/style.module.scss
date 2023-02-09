@@ -1,0 +1,16 @@
+@import "../uniform";
+
+.container {
+  @include centerDiv(row);
+  button {
+    width: 80%;
+    background-color: $backgroundColor;
+    border: 1px solid $backgroundColor;
+    box-shadow: 0 0 0 0 white;
+    color: white;
+    &:hover {
+      background-color: white;
+      color: $backgroundColor;
+    }
+  }
+}

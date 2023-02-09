@@ -1,0 +1,168 @@
+.profileData {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  padding: 5vmin 10vmin;
+  border-radius: 10px;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20vmin;
+}
+.profileData .datas {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.profileData .datas .dataWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-right: 1px solid rgba(78, 48, 245, 0.5);
+  border-top: 1px solid rgba(78, 48, 245, 0.5);
+  padding-right: 5vmin;
+  padding-top: 5vmin;
+  border-radius: 0 5px 0 0;
+}
+.profileData .datas .dataWrapper .data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  width: auto;
+  margin: 2vmin 5vmin;
+}
+.profileData .datas .dataWrapper .data label {
+  color: #4e30f5;
+}
+.profileData .datas .dataWrapper .data input {
+  padding: 3vmin 2vmin;
+  margin-top: 1vmin;
+  border: 1.2px solid #4e30f5;
+  border-radius: 5px;
+  color: #4e30f5;
+  width: 30vmin;
+}
+.profileData .datas .dataWrapper .data input ::-moz-placeholder {
+  color: rgba(78, 48, 245, 0.5);
+}
+.profileData .datas .dataWrapper .data input :-ms-input-placeholder {
+  color: rgba(78, 48, 245, 0.5);
+}
+.profileData .datas .dataWrapper .data input ::placeholder {
+  color: rgba(78, 48, 245, 0.5);
+}
+.profileData .datas .dataWrapper .data select {
+  padding: 3vmin 2vmin;
+  margin-top: 1vmin;
+  border: 1.2px solid #4e30f5;
+  border-radius: 5px;
+  color: #4e30f5;
+  width: 30vmin;
+}
+.profileData .datas .dataWrapper .data select option {
+  transition: all 0.5s;
+}
+.profileData .datas .dataWrapper .data select option:hover {
+  background-color: rgba(78, 48, 245, 0.5);
+  color: white;
+}
+.profileData .datas .dataButton {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: auto;
+  padding-left: 10vmin;
+}
+.profileData .datas .dataButton button {
+  border-radius: 10px;
+  border: 1px solid white;
+  color: #4e30f5;
+  background: none;
+  border: 2px solid;
+  font: inherit;
+  margin: 0.5em;
+  padding: 2vmin 8vmin;
+  background-color: white;
+  transition: 0.9s;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.profileData .datas .dataButton button:hover {
+  box-shadow: inset 20em 0 0 0 #4e30f5;
+  color: white;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 870px) {
+  .profileData {
+    margin-top: 10vmin;
+  }
+  .profileData .datas .dataWrapper {
+    padding: 0;
+  }
+  .profileData .datas .dataWrapper .data {
+    width: 90%;
+  }
+  .profileData .datas .dataWrapper .data label,
+.profileData .datas .dataWrapper .data input,
+.profileData .datas .dataWrapper .data select {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .profileData {
+    width: 80%;
+    padding: 3vmin 5vmin;
+  }
+  .profileData .datas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .profileData .datas .dataWrapper {
+    border: none;
+    padding: 0;
+  }
+  .profileData .datas .dataWrapper .data {
+    width: 90%;
+  }
+  .profileData .datas .dataWrapper .data label {
+    margin-bottom: 3vmin;
+  }
+  .profileData .datas .dataWrapper .data select,
+.profileData .datas .dataWrapper .data input {
+    height: 20vmin;
+    padding: 0 5vmin;
+    width: 100%;
+    font-size: 12px;
+    line-height: 30px;
+  }
+  .profileData .datas .dataButton {
+    padding: 0;
+    margin-top: 5vmin;
+    width: 90%;
+  }
+  .profileData .datas .dataButton button {
+    font-size: 10px;
+    height: 15vmin;
+    width: 100%;
+  }
+}/*# sourceMappingURL=style.module.css.map */

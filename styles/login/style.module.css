@@ -1,0 +1,10 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 100vh;
+  background-color: transparent;
+  position: absolute;
+}/*# sourceMappingURL=style.module.css.map */

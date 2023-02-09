@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Concert One", cursive;
+  outline: none;
+}
+body,
+html {
+  background-color: #4e30f5;
+  color: #1e1926;
+}

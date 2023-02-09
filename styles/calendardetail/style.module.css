@@ -1,0 +1,263 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 40%;
+  background-color: white;
+  border-radius: 0 5px 5px 0;
+  justify-content: flex-start;
+  padding: 5vmin 3vmin 2vmin 3vmin;
+  height: auto;
+}
+.container h3 {
+  color: #4e30f5;
+  margin-bottom: 5vmin;
+  text-align: center;
+}
+.container h2 {
+  font-size: 30px;
+  color: #4e30f5;
+  text-align: center;
+}
+.container .initialh3 {
+  margin: auto 0;
+  text-align: center;
+}
+.container button {
+  color: #4e30f5;
+  box-shadow: 0 0 2px 1px rgba(78, 48, 245, 0.5);
+  background-color: transparent;
+  border: none;
+  padding: 2vmin 10vmin;
+  border-radius: 5px;
+  transition: all 0.5s;
+}
+.container button:hover {
+  background-color: #4e30f5;
+  color: white;
+  box-shadow: 0 0 0 0 rgba(78, 48, 245, 0.5);
+  cursor: pointer;
+}
+.container .classEditorButton,
+.container .classDeleterButton {
+  margin: 0 1vmin;
+}
+.container .classDeleterButton {
+  box-shadow: 0 0 3px 2px rgba(255, 0, 26, 0.5);
+  color: #ff001a;
+}
+.container .classDeleterButton:hover {
+  background-color: #ff001a;
+  color: white;
+}
+.container .titleWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.container .titleWrapper div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container .titleWrapper div h5 {
+  margin-top: 3vmin;
+  color: #4e30f5;
+}
+.container .titleWrapper div button {
+  margin-top: 3vmin;
+  width: 80%;
+  padding: 2vmin 0;
+  background-color: #4e30f5;
+  color: white;
+  box-shadow: none;
+  border: 1px solid #4e30f5;
+}
+.container .titleWrapper div button:hover {
+  background-color: white;
+  color: #4e30f5;
+}
+.container .titleWrapper h1 {
+  font-size: 50px;
+  color: #4e30f5;
+}
+.container .datas {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto 0;
+  box-shadow: 0 0 3px 2px rgba(78, 48, 245, 0.5);
+  padding: 2vmin 3vmin;
+  border-radius: 5px;
+}
+.container .datas .deleteForSurePopUp {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container .datas .deleteForSurePopUp button {
+  margin: 1vmin;
+}
+.container .datas .deleteForSurePopUp button:nth-child(2) {
+  box-shadow: 0 0 3px 2px rgba(255, 0, 26, 0.5);
+  color: #ff001a;
+}
+.container .datas .deleteForSurePopUp button:nth-child(2):hover {
+  box-shadow: none;
+  background-color: #ff001a;
+  color: white;
+}
+.container .datas .data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 1vmin 0;
+}
+.container .datas .data h5 {
+  width: 100%;
+  text-align: right;
+  font-size: 20px;
+  color: #4e30f5;
+}
+.container .datas .data h5:nth-child(2) {
+  text-align: left;
+  margin-left: 2vmin;
+}
+.container .datas .data input,
+.container .datas .data select {
+  width: 100%;
+  font-size: 15px;
+  color: #4e30f5;
+  border-radius: 5px;
+  border: 1px solid #4e30f5;
+  margin: 0.2vmin 1vmin;
+  padding: 1vmin 2vmin;
+}
+.container .datas .data button {
+  margin: 0 1vmin;
+}
+.container .datas .data svg {
+  width: 20px;
+  color: #ff001a;
+  margin: auto;
+}
+.container .datas .timeData {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 1vmin;
+}
+.container .datas form .data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 1vmin 0;
+}
+.container .datas form .data h5 {
+  width: 100%;
+  text-align: right;
+  font-size: 25px;
+  color: #4e30f5;
+}
+.container .datas form .data h5:nth-child(2) {
+  text-align: left;
+  margin-left: 2vmin;
+}
+.container .datas form .data input,
+.container .datas form .data select {
+  width: 100%;
+  font-size: 15px;
+  color: #4e30f5;
+  border-radius: 5px;
+  border: 1px solid #4e30f5;
+  margin: 0.2vmin 1vmin;
+  padding: 1vmin 2vmin;
+}
+.container .datas form .data button {
+  margin: 0 1vmin;
+}
+.container .datas form .timeData {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 1vmin;
+}
+.container .datas .classAdderWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container .datas .classAdderWrapper div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 1vmin;
+}
+.container .datas .classAdderWrapper div label {
+  width: 100%;
+  text-align: left;
+  font-size: 12px;
+  color: #4e30f5;
+  font-weight: bold;
+}
+.container .datas .classAdderWrapper div input,
+.container .datas .classAdderWrapper div select {
+  width: 100%;
+  padding: 1vmin 1vmin;
+  border-radius: 5px;
+  border: 1px solid #4e30f5;
+  margin-top: 0.5vmin;
+}
+.container .datas .classAdderWrapper div:last-child {
+  margin-top: 3vmin;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.container .datas .classAdderWrapper div:last-child button {
+  width: 40%;
+  padding: 2vmin 0;
+  margin: 0 1vmin;
+}
+.container .datas .classAdderWrapper div:last-child button:last-child {
+  box-shadow: 0 0 2px 1px rgba(255, 0, 26, 0.5);
+  color: #ff001a;
+  background-color: transparent;
+}
+.container .datas .classAdderWrapper div:last-child button:last-child:hover {
+  background-color: #ff001a;
+  color: white;
+  box-shadow: 0 0 0 0 #ff001a;
+}
+
+@media only screen and (max-width: 850px) {
+  .container {
+    width: 90%;
+    border-radius: 5px;
+  }
+}/*# sourceMappingURL=style.module.css.map */

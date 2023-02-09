@@ -1,0 +1,61 @@
+@import "../uniform";
+
+.titleWrapper {
+  @include centerDiv(row);
+  margin-bottom: 10vmin;
+  justify-content: space-around;
+  h1 {
+    font-size: 90px;
+    color: $backgroundColor;
+  }
+  .pic {
+    flex-shrink: 0;
+    margin: 20px;
+    height: calc(150px + 6vw);
+    width: calc(150px + 6vw);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    background-size: cover;
+    box-sizing: border-box;
+    border-radius: 30%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0 0 5px 5px rgba($backgroundColor, 0.5);
+    @include centerDiv(row);
+    width: auto;
+    input {
+      height: 100%;
+      opacity: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .titleWrapper {
+    h1 {
+      font-size: 70px;
+    }
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .titleWrapper {
+    @include centerDiv(column);
+    h1 {
+      text-align: center;
+      padding: 5vmin 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .titleWrapper {
+    h1 {
+      font-size: 50px;
+    }
+    .pic {
+      width: 70%;
+    }
+  }
+}

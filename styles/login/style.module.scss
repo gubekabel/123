@@ -1,0 +1,8 @@
+@import "../uniform";
+
+.container {
+  @include centerDiv(row);
+  height: 100vh;
+  background-color: transparent;
+  position: absolute;
+}
