@@ -1,4 +1,4 @@
-import styles from "../../styles/calendarcalendar/style.module.css";
+import styles from "../../styles/style.module.css";
 import { useEffect, useState } from "react";
 import LoaderPage from "./../../ui/Loader";
 import { GetCalendarLines } from "./../../lib/userCalendar/getCalendarLines";

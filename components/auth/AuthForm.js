@@ -2,8 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
-import styles from "../../styles/authform/style.module.css";
-import AnimatedBackgroundPage from "./../../ui/animatedBackground";
+import styles from "../../styles/style.module.css";
 import { useEffect } from "react";
 import LoaderPage from "./../../ui/Loader";
 
@@ -117,7 +116,6 @@ export default function AuthForm(props) {
         </form>
         <div className={styles.img}></div>
       </div>
-      <AnimatedBackgroundPage></AnimatedBackgroundPage>
     </>
   );
 }

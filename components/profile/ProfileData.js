@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import styles from "../../styles/profileData/style.module.css";
-import ProfilePicPage from "./ProfilePic";
+import styles from "../../styles/style.module.css";
 import LoaderPage from "./../../ui/Loader";
 
 export default function ProfileDataPage() {
@@ -10,7 +9,6 @@ export default function ProfileDataPage() {
   let [school, setSchool] = useState("");
   let router = useRouter();
   let [isLoading, setIsLoading] = useState(true);
-  let [file, setFile] = useState();
 
   useEffect(() => {
     loadUserData()
@@ -65,7 +63,6 @@ export default function ProfileDataPage() {
   return (
     <div className={styles.container}>
       <div className={styles.profileData}>
-        <ProfilePicPage></ProfilePicPage>
         <form className={styles.datas} onSubmit={handleSubmit}>
           {isLoading ? (
             <>
@@ -109,31 +106,6 @@ export default function ProfileDataPage() {
                   <option value="12.C">12.C</option>
                   <option value="12.E">12.E</option>
                   <option value="12.IB">12.IB</option>
-                </select>
-              </div>
-              <div className={styles.data}>
-                <label htmlFor="">Felhasználónév</label>
-                <input
-                  type="text"
-                  placeholder="Írj be egy felhasználónevet..."
-                  value={nickname}
-                  onChange={(e) => {
-                    setNickname(e.target.value);
-                  }}
-                />
-              </div>
-              <div className={styles.data}>
-                <label htmlFor="">Iskola</label>
-                <select
-                  name=""
-                  id=""
-                  value={school}
-                  onChange={(e) => {
-                    setSchool(e.target.value);
-                  }}
-                >
-                  <option value="">Válassz susut!</option>
-                  <option value="Karinthy">Karinthy</option>
                 </select>
               </div>
             </div>

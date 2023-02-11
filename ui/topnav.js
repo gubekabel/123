@@ -1,8 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
-import styles from "../styles/topnav/style.module.css";
 import { useAuth } from "./../context/AuthContext";
 import { useRouter } from "next/router";
+import styles from "../styles/style.module.css";
 
 export default function Topnav(props) {
   let router = useRouter();

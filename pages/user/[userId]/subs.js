@@ -1,22 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import axios from "axios";
 import cheerio from "cheerio";
-import styles from "../../../styles/subs/style.module.css";
 import CustomHead from "./../../../ui/CustomHead";
 import Topnav from "../../../ui/topnav";
 import SubsPageComponent from "../../../components/subs/subspage";
 import { useRouter } from "next/router";
-import AnimatedBackgroundPage from "../../../ui/animatedBackground";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useAuth } from "./../../../context/AuthContext";
 import LoaderPage from "./../../../ui/Loader";
 import { getAllUserId } from "../../../lib/userData/firebase";
 import { getSubLines } from "./../../../lib/subs/GetSubLines";
-import { collection } from "firebase/firestore";
 import { db } from "./../../../firebaseConfig";
 import { setDoc } from "firebase/firestore";
 import { doc } from "firebase/firestore";
+import styles from "../../../styles/style.module.css";
 
 export default function SubsPage(props) {
   let router = useRouter();
@@ -116,7 +114,6 @@ export default function SubsPage(props) {
       ) : (
         <>
           <SubsPageComponent props={props}></SubsPageComponent>
-          <AnimatedBackgroundPage></AnimatedBackgroundPage>
         </>
       )}
     </div>

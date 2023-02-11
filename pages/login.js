@@ -1,6 +1,6 @@
 import AuthForm from "../components/auth/AuthForm";
 import CustomHead from "./../ui/CustomHead";
-import styles from "../styles/login/style.module.css";
+import styles from "../styles/style.module.css";
 
 export default function LoginPage() {
   return (

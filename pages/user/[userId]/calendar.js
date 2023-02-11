@@ -2,8 +2,7 @@ import CustomHead from "./../../../ui/CustomHead";
 import Topnav from "./../../../ui/topnav";
 import { useRouter } from "next/router";
 import CalendarComponent from "../../../components/calendar/CalendarComponent";
-import styles from "../../../styles/calendar/style.module.css";
-import AnimatedBackgroundPage from "./../../../ui/animatedBackground";
+import styles from "../../../styles/style.module.css";
 import { getAllUserId } from "../../../lib/userData/firebase";
 import { axios } from "axios";
 import { cheerio } from "cheerio";
@@ -38,7 +37,6 @@ export default function CalendarPage(props) {
       ></CustomHead>
       <Topnav userId={router.query.userId}></Topnav>
       <CalendarComponent props={props}></CalendarComponent>
-      <AnimatedBackgroundPage></AnimatedBackgroundPage>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import styles from "../../styles/calendarsavingpage/style.module.css";
-
+import styles from "../../styles/style.module.css";
 export default function CalendarSavingPage() {
   let router = useRouter();
 

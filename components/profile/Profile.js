@@ -1,6 +1,4 @@
-import styles from "../../styles/profilepagecomponent/style.module.css";
-import { useState } from "react";
-import { useRouter } from "next/router";
+import styles from "../../styles/style.module.css";
 import IntroPage from "./Intro";
 import ProfileDataPage from "./ProfileData";
 

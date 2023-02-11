@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import LoaderPage from "./../../ui/Loader";
-import styles from "../../styles/calendardetail/style.module.css";
+import styles from "../../styles/style.module.css";
 import CalendarSavingPage from "./DetailSavingCalendar";
 import { getSubjects } from "../../lib/subjects/firebase";
 
