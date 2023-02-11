@@ -1,9 +1,0 @@
-@import "../uniform";
-
-.container {
-  @include centerDiv(column);
-  height: 100vh;
-  position: absolute;
-  z-index: 10;
-  justify-content: flex-start;
-}

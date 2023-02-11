@@ -1,7 +1,0 @@
-@import "../uniform";
-
-.container {
-  @include centerDiv(row);
-  height: 100vh;
-  justify-content: space-around;
-}
