@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <div className={styles.container}>
       <CustomHead
-        title="Maxt Login"
+        title="Login"
         description="Maxt Login Page for Maxt users."
         keywords="maxt, login"
       ></CustomHead>
