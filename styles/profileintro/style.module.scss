@@ -1,0 +1,34 @@
+@import "../uniform";
+
+.container {
+  @include centerDiv(row);
+  width: 50%;
+  padding-top: 10vmin;
+  .intro {
+    @include centerDiv(column);
+    padding: 5vmin;
+    h1 {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 5vmin;
+      color: $main;
+    }
+    .classesContainer {
+      @include centerDiv(row);
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.class {
+  @include centerDiv(column);
+  width: 30vmin;
+  background-color: $main;
+  margin: 1vmin;
+  color: white;
+  padding: 2vmin 0;
+  border-radius: 10px;
+  h5 {
+    margin-bottom: 1vmin;
+  }
+}

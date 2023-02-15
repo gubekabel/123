@@ -1,0 +1,6 @@
+@import "../uniform";
+
+.container {
+  @include centerDiv(row);
+  justify-content: space-evenly;
+}

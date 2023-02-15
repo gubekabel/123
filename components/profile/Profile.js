@@ -1,4 +1,4 @@
-import styles from "../../styles/style.module.css";
+import styles from "../../styles/profilecomponent/style.module.css";
 import IntroPage from "./Intro";
 import ProfileDataPage from "./ProfileData";
 

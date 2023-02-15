@@ -1,0 +1,81 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border-bottom: 1px solid white;
+  padding: 3vmin;
+  justify-content: flex-start;
+  height: 15vh;
+  background-color: #005b3f;
+}
+.container .imgLink {
+  width: 20%;
+}
+.container a {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 10%;
+  text-decoration: none;
+}
+.container a .img {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: auto;
+}
+.container a .img p {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+  width: 100%;
+  font-size: 20px;
+}
+.container a svg {
+  width: 20px;
+  color: white;
+}
+.container a:hover {
+  cursor: pointer;
+}
+.container div {
+  width: 40%;
+  height: 100%;
+}
+.container button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: auto;
+  background-color: transparent;
+  border: none;
+  padding: 1vmin 1vmin;
+  transition: all 0.6s;
+  color: white;
+  border-radius: 3px;
+}
+.container button svg {
+  width: 20px;
+  color: inherit;
+}
+.container button:hover {
+  background-color: white;
+}
+
+@media only screen and (max-width: 375px) {
+  .container .imgLink {
+    width: 30%;
+  }
+  .container a {
+    width: 20%;
+  }
+}/*# sourceMappingURL=style.module.css.map */

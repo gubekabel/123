@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import styles from "../../styles/style.module.css";
+import styles from "../../styles/profiledata/style.module.css";
 import LoaderPage from "./../../ui/Loader";
 
 export default function ProfileDataPage() {

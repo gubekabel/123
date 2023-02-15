@@ -1,0 +1,69 @@
+@import "../uniform";
+
+.container {
+  @include centerDiv(row);
+  border-bottom: 1px solid white;
+  padding: 3vmin;
+  justify-content: flex-start;
+  height: 15vh;
+  background-color: $main;
+  .imgLink {
+    width: 20%;
+  }
+  a {
+    @include centerDiv(row);
+    width: 10%;
+    text-decoration: none;
+    .img {
+      @include centerDiv(row);
+      width: auto;
+      p {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        width: 100%;
+        font-size: 20px;
+      }
+    }
+    svg {
+      width: 20px;
+      color: white;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  div {
+    width: 40%;
+    height: 100%;
+  }
+  button {
+    @include centerDiv(row);
+    width: auto;
+    background-color: transparent;
+    border: none;
+    padding: 1vmin 1vmin;
+    transition: all 0.6s;
+    color: white;
+    border-radius: 3px;
+    svg {
+      width: 20px;
+      color: inherit;
+    }
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .container {
+    .imgLink {
+      width: 30%;
+    }
+    a {
+      width: 20%;
+    }
+  }
+}

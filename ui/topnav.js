@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useAuth } from "./../context/AuthContext";
 import { useRouter } from "next/router";
-import styles from "../styles/style.module.css";
+import styles from "../styles/topnav/style.module.css";
 
 export default function Topnav(props) {
   let router = useRouter();
@@ -10,7 +10,9 @@ export default function Topnav(props) {
   return (
     <div className={styles.container}>
       <Link href="/" className={styles.imgLink}>
-        <div className={styles.img}></div>
+        <div className={styles.img}>
+          <p>dumb</p>
+        </div>
       </Link>
       <Link href={`/user/${props.userId}/profile`}>
         <svg

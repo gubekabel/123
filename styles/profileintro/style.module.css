@@ -1,0 +1,48 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 50%;
+  padding-top: 10vmin;
+}
+.container .intro {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5vmin;
+}
+.container .intro h1 {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 5vmin;
+  color: #005b3f;
+}
+.container .intro .classesContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.class {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 30vmin;
+  background-color: #005b3f;
+  margin: 1vmin;
+  color: white;
+  padding: 2vmin 0;
+  border-radius: 10px;
+}
+.class h5 {
+  margin-bottom: 1vmin;
+}/*# sourceMappingURL=style.module.css.map */
