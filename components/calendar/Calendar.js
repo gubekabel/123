@@ -1,9 +1,7 @@
-import styles from "../../styles/style.module.css";
+import styles from "../../styles/calendarcalendar/style.module.css";
 import { useEffect, useState } from "react";
 import LoaderPage from "./../../ui/Loader";
-import { GetCalendarLines } from "./../../lib/userCalendar/getCalendarLines";
 import { useRouter } from "next/router";
-import DetailComponent from "./Detail";
 import { getUserData } from "../../lib/userData/firebase";
 
 export default function CalendarPage(props) {
@@ -13,6 +11,11 @@ export default function CalendarPage(props) {
   let [isLoading, setIsLoading] = useState(true);
   let [idToDetermineSubject, setIdToDetermineSubject] = useState("");
   let isClassSubbed = false;
+  let [monday, setMonday] = useState(false);
+  let [tuesday, setTuesday] = useState(false);
+  let [wednesday, setWednesday] = useState(false);
+  let [thursday, setThursday] = useState(false);
+  let [friday, setFriday] = useState(false);
   let [userClass, setUserClass] = useState("");
   let hours = [
     "07:00",
@@ -65,6 +68,20 @@ export default function CalendarPage(props) {
       });
   }, []);
 
+  function changeOpenDay(day) {
+    if (day === "monday") {
+      setMonday((prev) => !prev);
+    } else if (day === "tuesday") {
+      setTuesday((prev) => !prev);
+    } else if (day === "wednesday") {
+      setWednesday((prev) => !prev);
+    } else if (day === "thursday") {
+      setThursday((prev) => !prev);
+    } else if (day === "friday") {
+      setFriday((prev) => !prev);
+    }
+  }
+
   if (isLoading) {
     return (
       <div className={styles.container}>
@@ -73,554 +90,156 @@ export default function CalendarPage(props) {
     );
   }
 
-  days = GetCalendarLines(days);
-
+  console.log(days);
   return (
     <div className={styles.container}>
       <div className={styles.calendar}>
-        <div className={`${styles.tr} ${styles.firstTr}`}>
-          <div className={styles.td}>00.00</div>
-          <div className={styles.td}>Hétfő</div>
-          <div className={styles.td}>Kedd</div>
-          <div className={styles.td}>Szerda</div>
-          <div className={styles.td}>Csütörtök</div>
-          <div className={styles.td}>Péntek</div>
-        </div>
-        {days.map((day, i) => {
-          return (
-            <div className={styles.tr} key={i} id={`${hours[i].split(":")[0]}`}>
-              <div className={styles.td}>
-                <span>{hours[i]}</span>
-              </div>
-              {day.map((subject, j) => {
-                let date = new Date();
-                isClassSubbed = false;
-                if (date.getDay() - 1 === j) {
-                  if (subs.length >= 1) {
-                    subs.map((sub) => {
-                      if (subject.id) {
-                        if (
-                          (subject.id.split("_")[0] === sub.classNumber &&
-                            userClass.split(".")[0] ===
-                              sub.class.split(".")[0] &&
-                            sub.class
-                              .split(".")[1]
-                              .trim()
-                              .toLowerCase()
-                              .includes(
-                                userClass.split(".")[1].trim().toLowerCase()
-                              )) ||
-                          (userClass.split(".")[1].trim().toUpperCase() ===
-                            "B" &&
-                            sub.class
-                              .split(".")[1]
-                              .trim()
-                              .toUpperCase()
-                              .split(".")[1] != "IB")
-                        ) {
-                          if (
-                            sub.subject.trim().toLowerCase() ===
-                            subject.name.trim().toLowerCase()
-                          ) {
-                            isClassSubbed = true;
-                            if (sub.note === "") {
-                              subject.note = (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  fill="currentColor"
-                                  className="w-6 h-6"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              );
-                            } else {
-                              subject.note = sub.note;
-                            }
-                            if (sub.roomNumber === "") {
-                              subject.room = (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  fill="currentColor"
-                                  className="w-6 h-6"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              );
-                            } else {
-                              subject.room = sub.roomNumber;
-                            }
-                            if (sub.substituteTeacher === "") {
-                              subject.teacher = (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  fill="currentColor"
-                                  className="w-6 h-6"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              );
-                            } else {
-                              subject.teacher = sub.substituteTeacher;
-                            }
-                          }
-                        }
-                      }
-                    });
-                  }
-                } else if (date.getDay() === j) {
-                  if (tomorrowSubs.length >= 1) {
-                    tomorrowSubs.map((sub) => {
-                      if (subject.id) {
-                        if (
-                          (subject.id.split("_")[0] === sub.classNumber &&
-                            userClass.split(".")[0] ===
-                              sub.class.split(".")[0] &&
-                            sub.class
-                              .split(".")[1]
-                              .trim()
-                              .toLowerCase()
-                              .includes(
-                                userClass.split(".")[1].trim().toLowerCase()
-                              )) ||
-                          (userClass.split(".")[1].trim().toUpperCase() ===
-                            "B" &&
-                            sub.class
-                              .split(".")[1]
-                              .trim()
-                              .toUpperCase()
-                              .split(".")[1] != "IB")
-                        ) {
-                          isClassSubbed = true;
-                          if (sub.note === "") {
-                            subject.note = (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            );
-                          } else {
-                            subject.note = sub.note;
-                          }
-                          if (sub.roomNumber === "") {
-                            subject.room = (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            );
-                          } else {
-                            subject.room = sub.roomNumber;
-                          }
-                          if (sub.substituteTeacher === "") {
-                            subject.teacher = (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="w-6 h-6"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                            );
-                          } else {
-                            subject.teacher = sub.substituteTeacher;
-                          }
-                        }
-                      }
-                    });
-                  }
-                }
-                if (isClassSubbed) {
-                  if (days[i + 1]) {
-                    if (
-                      days[i + 1][j].name === days[i][j].name &&
-                      days[i + 1][j].teacher === days[i][j].teacher
-                    ) {
-                      return (
-                        <>
-                          {subject.name ? (
-                            <>
-                              <div
-                                className={`${styles.tdFull} ${styles.doubleClassFirst} ${styles.subs}`}
-                                key={j}
-                              >
-                                <button
-                                  id={`${i}_${j}`}
-                                  onClick={(e) => {
-                                    setIdToDetermineSubject(e.target.id);
-                                  }}
-                                >
-                                  <span> {subject.name}</span>
-                                </button>
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className={styles.td} key={j}>
-                                <button
-                                  id={`${i}_${j}`}
-                                  onClick={(e) => {
-                                    setIdToDetermineSubject(e.target.id);
-                                  }}
-                                ></button>
-                              </div>
-                            </>
-                          )}
-                        </>
-                      );
-                    } else {
-                      if (days[i - 1]) {
-                        if (
-                          days[i - 1][j].name === days[i][j].name &&
-                          days[i - 1][j].teacher === days[i][j].teacher
-                        ) {
-                          return (
-                            <>
-                              {subject.name ? (
-                                <>
-                                  <div
-                                    className={`${styles.tdFull} ${styles.doubleClassSecond} ${styles.subs}`}
-                                    key={j}
-                                  >
-                                    <button
-                                      id={`${i}_${j}`}
-                                      onClick={(e) => {
-                                        setIdToDetermineSubject(e.target.id);
-                                      }}
-                                    >
-                                      <span> {subject.name}</span>
-                                    </button>
-                                  </div>
-                                </>
-                              ) : (
-                                <>
-                                  <div className={styles.td} key={j}>
-                                    <button
-                                      id={`${i}_${j}`}
-                                      onClick={(e) => {
-                                        setIdToDetermineSubject(e.target.id);
-                                      }}
-                                    ></button>
-                                  </div>
-                                </>
-                              )}
-                            </>
-                          );
-                        } else {
-                          return (
-                            <>
-                              {subject.name ? (
-                                <>
-                                  <div
-                                    className={`${styles.tdFull} ${styles.subs}`}
-                                    key={j}
-                                  >
-                                    <button
-                                      id={`${i}_${j}`}
-                                      onClick={(e) => {
-                                        setIdToDetermineSubject(e.target.id);
-                                      }}
-                                    >
-                                      <span> {subject.name}</span>
-                                    </button>
-                                  </div>
-                                </>
-                              ) : (
-                                <>
-                                  <div className={styles.td} key={j}>
-                                    <button
-                                      id={`${i}_${j}`}
-                                      onClick={(e) => {
-                                        setIdToDetermineSubject(e.target.id);
-                                      }}
-                                    ></button>
-                                  </div>
-                                </>
-                              )}
-                            </>
-                          );
-                        }
-                      } else {
-                        return (
-                          <>
-                            {subject.name ? (
-                              <>
-                                <div
-                                  className={`${styles.tdFull} ${styles.subs}`}
-                                  key={j}
-                                >
-                                  <button
-                                    id={`${i}_${j}`}
-                                    onClick={(e) => {
-                                      setIdToDetermineSubject(e.target.id);
-                                    }}
-                                  >
-                                    <span> {subject.name}</span>
-                                  </button>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div className={styles.td} key={j}>
-                                  <button
-                                    id={`${i}_${j}`}
-                                    onClick={(e) => {
-                                      setIdToDetermineSubject(e.target.id);
-                                    }}
-                                  ></button>
-                                </div>
-                              </>
-                            )}
-                          </>
-                        );
-                      }
-                    }
-                  } else {
-                    return (
+        <div className={styles.monday}>
+          <button
+            onClick={() => {
+              changeOpenDay("monday");
+            }}
+          >
+            Hétfő
+          </button>
+          {monday ? (
+            <div className={styles.days} id="0">
+              {days[0].map((subject, i) => {
+                return (
+                  <button className={styles.day} id={`0_${i}`} key={i}>
+                    {subject.name ? (
                       <>
-                        {subject.name ? (
-                          <>
-                            <div
-                              className={`${styles.tdFull} ${styles.subs}`}
-                              key={j}
-                            >
-                              <button
-                                id={`${i}_${j}`}
-                                onClick={(e) => {
-                                  setIdToDetermineSubject(e.target.id);
-                                }}
-                              >
-                                <span> {subject.name}</span>
-                              </button>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className={styles.td} key={j}>
-                              <button
-                                id={`${i}_${j}`}
-                                onClick={(e) => {
-                                  setIdToDetermineSubject(e.target.id);
-                                }}
-                              ></button>
-                            </div>
-                          </>
-                        )}
+                        <h5>{subject.name}</h5>
                       </>
-                    );
-                  }
-                } else {
-                  if (days[i + 1]) {
-                    if (
-                      days[i + 1][j].name === days[i][j].name &&
-                      days[i + 1][j].teacher === days[i][j].teacher
-                    ) {
-                      return (
-                        <>
-                          {subject.name ? (
-                            <>
-                              <div
-                                className={`${styles.tdFull} ${styles.doubleClassFirst}`}
-                                key={j}
-                              >
-                                <button
-                                  id={`${i}_${j}`}
-                                  onClick={(e) => {
-                                    setIdToDetermineSubject(e.target.id);
-                                  }}
-                                >
-                                  <span> {subject.name}</span>
-                                </button>
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <div className={styles.td} key={j}>
-                                <button
-                                  id={`${i}_${j}`}
-                                  onClick={(e) => {
-                                    setIdToDetermineSubject(e.target.id);
-                                  }}
-                                ></button>
-                              </div>
-                            </>
-                          )}
-                        </>
-                      );
-                    } else {
-                      if (days[i - 1]) {
-                        if (
-                          days[i - 1][j].name === days[i][j].name &&
-                          days[i - 1][j].teacher === days[i][j].teacher
-                        ) {
-                          return (
-                            <>
-                              {subject.name ? (
-                                <>
-                                  <div
-                                    className={`${styles.tdFull} ${styles.doubleClassSecond}`}
-                                    key={j}
-                                  >
-                                    <button
-                                      id={`${i}_${j}`}
-                                      onClick={(e) => {
-                                        setIdToDetermineSubject(e.target.id);
-                                      }}
-                                    >
-                                      <span> {subject.name}</span>
-                                    </button>
-                                  </div>
-                                </>
-                              ) : (
-                                <>
-                                  <div className={styles.td} key={j}>
-                                    <button
-                                      id={`${i}_${j}`}
-                                      onClick={(e) => {
-                                        setIdToDetermineSubject(e.target.id);
-                                      }}
-                                    ></button>
-                                  </div>
-                                </>
-                              )}
-                            </>
-                          );
-                        } else {
-                          return (
-                            <>
-                              {subject.name ? (
-                                <>
-                                  <div className={styles.tdFull} key={j}>
-                                    <button
-                                      id={`${i}_${j}`}
-                                      onClick={(e) => {
-                                        setIdToDetermineSubject(e.target.id);
-                                      }}
-                                    >
-                                      <span> {subject.name}</span>
-                                    </button>
-                                  </div>
-                                </>
-                              ) : (
-                                <>
-                                  <div className={styles.td} key={j}>
-                                    <button
-                                      id={`${i}_${j}`}
-                                      onClick={(e) => {
-                                        setIdToDetermineSubject(e.target.id);
-                                      }}
-                                    ></button>
-                                  </div>
-                                </>
-                              )}
-                            </>
-                          );
-                        }
-                      } else {
-                        return (
-                          <>
-                            {subject.name ? (
-                              <>
-                                <div className={styles.tdFull} key={j}>
-                                  <button
-                                    id={`${i}_${j}`}
-                                    onClick={(e) => {
-                                      setIdToDetermineSubject(e.target.id);
-                                    }}
-                                  >
-                                    <span> {subject.name}</span>
-                                  </button>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div className={styles.td} key={j}>
-                                  <button
-                                    id={`${i}_${j}`}
-                                    onClick={(e) => {
-                                      setIdToDetermineSubject(e.target.id);
-                                    }}
-                                  ></button>
-                                </div>
-                              </>
-                            )}
-                          </>
-                        );
-                      }
-                    }
-                  } else {
-                    return (
-                      <>
-                        {subject.name ? (
-                          <>
-                            <div className={styles.tdFull} key={j}>
-                              <button
-                                id={`${i}_${j}`}
-                                onClick={(e) => {
-                                  setIdToDetermineSubject(e.target.id);
-                                }}
-                              >
-                                <span> {subject.name}</span>
-                              </button>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className={styles.td} key={j}>
-                              <button
-                                id={`${i}_${j}`}
-                                onClick={(e) => {
-                                  setIdToDetermineSubject(e.target.id);
-                                }}
-                              ></button>
-                            </div>
-                          </>
-                        )}
-                      </>
-                    );
-                  }
-                }
+                    ) : (
+                      <></>
+                    )}
+                  </button>
+                );
               })}
+              <button>Új óra hozzáadása</button>
             </div>
-          );
-        })}
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className={styles.tuesday}>
+          <button
+            onClick={() => {
+              changeOpenDay("tuesday");
+            }}
+          >
+            Kedd
+          </button>{" "}
+          {tuesday ? (
+            <div className={styles.days}>
+              {days[1].map((subject, i) => {
+                return (
+                  <div className={styles.day} id={`1_${i}`} key={i}>
+                    {subject.name ? (
+                      <>
+                        <h5>{subject.name}</h5>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                );
+              })}
+              <button>Új óra hozzáadása</button>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className={styles.wednesday}>
+          <button
+            onClick={() => {
+              changeOpenDay("wednesday");
+            }}
+          >
+            Szerda
+          </button>{" "}
+          {wednesday ? (
+            <div className={styles.days}>
+              {days[2].map((subject, i) => {
+                return (
+                  <div className={styles.day} id={`2_${i}`} key={i}>
+                    {subject.name ? (
+                      <>
+                        <h5>{subject.name}</h5>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                );
+              })}
+              <button>Új óra hozzáadása</button>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className={styles.thursday}>
+          <button
+            onClick={() => {
+              changeOpenDay("thursday");
+            }}
+          >
+            Csütörtök
+          </button>{" "}
+          {thursday ? (
+            <div className={styles.days}>
+              {days[3].map((subject, i) => {
+                return (
+                  <div className={styles.day} id={`3_${i}`} key={i}>
+                    {subject.name ? (
+                      <>
+                        <h5>{subject.name}</h5>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                );
+              })}
+              <button>Új óra hozzáadása</button>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className={styles.friday}>
+          <button
+            onClick={() => {
+              changeOpenDay("friday");
+            }}
+          >
+            Péntek
+          </button>{" "}
+          {friday ? (
+            <div className={styles.days}>
+              {days[4].map((subject, i) => {
+                return (
+                  <div className={styles.day} id={`4_${i}`} key={i}>
+                    {subject.name ? (
+                      <>
+                        <h5>{subject.name}</h5>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                );
+              })}
+              <button>Új óra hozzáadása</button>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
-      <DetailComponent id={idToDetermineSubject} data={days}></DetailComponent>
     </div>
   );
 }

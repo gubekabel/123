@@ -2,8 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
-import styles from "../../styles/style.module.css";
-import { useEffect } from "react";
+import styles from "../../styles/authform/style.module.css";
 import LoaderPage from "./../../ui/Loader";
 
 export default function AuthForm(props) {
@@ -11,17 +10,10 @@ export default function AuthForm(props) {
   let [password, setPassword] = useState("");
   let [error, setError] = useState("");
   let router = useRouter();
-  let [isLoading, setIsLoading] = useState(true);
+  let [isLoading, setIsLoading] = useState(false);
+  let [haveLoggedIn, setHaveLoggedIn] = useState(false);
 
-  let { user, login, signup } = useAuth();
-
-  useEffect(() => {
-    if (user) {
-      router.push(`/user/${user.id}/profile`);
-    } else {
-      setIsLoading(false);
-    }
-  }, []);
+  let { user, login, signup, logout } = useAuth();
 
   async function handleSubmit(e) {
     setIsLoading(true);
@@ -30,36 +22,28 @@ export default function AuthForm(props) {
     if (props.isLogin) {
       try {
         await login(email, password);
+        setHaveLoggedIn(true);
       } catch (error) {
-        setError(error.message);
+        console.log(error);
+        setError("Hibás felhasználónév vagy jelszó");
         setIsLoading(false);
+      }
+      if (user) {
+        router.push(`/user/${user.id}/profile`);
       }
     } else {
       try {
         await signup(email, password);
+        setHaveLoggedIn(true);
       } catch (error) {
         setError(error.message);
         setIsLoading(false);
       }
     }
   }
-  if (user != undefined && error === "") {
-    if (!props.isLogin) {
-      fetch("/api/user/userSetup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          id: user.id
-        })
-      }).then(() => {
-        router.push(`/user/${user.id}/profile`);
-      });
-    } else {
-      router.push(`/user/${user.id}/profile`);
-    }
-  } else {
+
+  if (haveLoggedIn && user) {
+    router.push(`/user/${user.id}/profile`);
   }
 
   if (isLoading) {
@@ -104,12 +88,12 @@ export default function AuthForm(props) {
             {props.isLogin ? (
               <>
                 <button type="submit">Login</button>
-                <Link href="/signup">Kéne egy fiók? Regisztrálj!!</Link>
+                <Link href="/signup">Nincs fiókom</Link>
               </>
             ) : (
               <>
                 <button type="submit">Regisztráció</button>
-                <Link href="/login">Van fiókod? Jelentkezz be!</Link>
+                <Link href="/login">Már van fiókom</Link>
               </>
             )}
           </div>

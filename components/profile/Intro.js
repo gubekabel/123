@@ -1,10 +1,11 @@
 import styles from "../../styles/profileintro/style.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import LoaderPage from "./../../ui/Loader";
 
 export default function IntroPage() {
   let router = useRouter();
-  let [todaySubjects, setTodaySubjects] = useState([]);
+  let [todaySubjects, setTodaySubjects] = useState();
   let days = [
     "Vasárnap",
     "Hétfő",
@@ -49,7 +50,9 @@ export default function IntroPage() {
     return response.message;
   }
 
-  console.log(todaySubjects);
+  if (todaySubjects === undefined) {
+    return <LoaderPage></LoaderPage>;
+  }
 
   return (
     <div className={styles.container}>

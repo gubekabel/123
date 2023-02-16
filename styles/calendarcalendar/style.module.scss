@@ -1,0 +1,64 @@
+@import "../uniform";
+
+.container {
+  @include centerDiv(row);
+  .calendar {
+    @include centerDiv(column);
+    padding: 10vmin 0;
+  }
+  .monday,
+  .tuesday,
+  .wednesday,
+  .thursday,
+  .friday {
+    @include centerDiv(column);
+    button {
+      width: 40%;
+      background-color: $main;
+      color: white;
+      padding: 4vmin 0 4vmin 3vmin;
+      border: none;
+      font-weight: bold;
+      transition: all 0.6s;
+      border: 1px solid $main;
+      font-size: 20px;
+      &:hover {
+        background-color: transparent;
+        color: $main;
+        cursor: pointer;
+      }
+    }
+    .days {
+      @include centerDiv(column);
+      border: 1px solid $main;
+      width: 40%;
+      margin-bottom: 3vmin;
+      .day {
+        @include centerDiv(column);
+        padding: 2vmin 0;
+        transition: all 0.6s;
+        font-weight: bolder;
+        font-size: 15px;
+        background-color: transparent;
+        color: $main;
+        border: none;
+        &:hover {
+          background-color: $main;
+          color: white;
+        }
+      }
+      button {
+        &:last-child {
+          @include centerDiv(column);
+          padding: 2vmin 0;
+          transition: all 0.6s;
+          font-weight: bolder;
+          font-size: 15px;
+          background-color: $main;
+          color: white;
+          border: none;
+        }
+      }
+    }
+  }
+}

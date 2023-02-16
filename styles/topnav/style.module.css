@@ -69,6 +69,7 @@
 }
 .container button:hover {
   background-color: white;
+  color: #005b3f;
 }
 
 @media only screen and (max-width: 375px) {

@@ -3,4 +3,49 @@
 .container {
   @include centerDiv(row);
   width: 50%;
+  padding: 0 5vmin;
+  .profileData {
+    @include centerDiv(row);
+    box-shadow: 0 0 3px 2px rgba($main, 0.5);
+    border-radius: 10px;
+    padding: 10vmin 0;
+    .dataWrapper {
+      @include centerDiv(row);
+      .data {
+        @include centerDiv(row);
+        color: $main;
+        label {
+          margin-right: 5vmin;
+          font-weight: bold;
+        }
+        select {
+          padding: 1vmin 3vmin;
+          background-color: transparent;
+          color: $main;
+          border: 1px solid $main;
+          font-weight: bold;
+          border-radius: 3px;
+        }
+      }
+    }
+    .dataButton {
+      @include centerDiv(row);
+      button {
+        width: 100%;
+        margin-top: 3vmin;
+        padding: 2vmin 0;
+        border-radius: 10px;
+        border: 1px solid $main;
+        color: white;
+        background-color: $main;
+        font-weight: bold;
+        transition: all 0.6s;
+        &:hover {
+          cursor: pointer;
+          background-color: transparent;
+          color: $main;
+        }
+      }
+    }
+  }
 }

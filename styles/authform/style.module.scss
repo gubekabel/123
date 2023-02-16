@@ -1,0 +1,66 @@
+@import "../uniform";
+
+.container {
+  @include centerDiv(row);
+  height: 100vh;
+  form {
+    @include centerDiv(column);
+    background-color: $main;
+    width: 50%;
+    padding: 3vmin 3vmin 5vmin 3vmin;
+    border-radius: 10px;
+    h3 {
+      color: white;
+      font-weight: bolder;
+      font-size: 50px;
+    }
+    p {
+      color: red;
+      margin: 3vmin 0;
+    }
+    .datas {
+      @include centerDiv(column);
+      margin: 10vmin 0;
+      .data {
+        @include centerDiv(row);
+        justify-content: space-around;
+        margin: 1vmin 0;
+        label {
+          color: white;
+          font-weight: bold;
+        }
+        input {
+          border: none;
+          border-bottom: 1px solid white;
+          background-color: transparent;
+          color: white;
+          padding: 0.5vmin 2vmin;
+        }
+      }
+    }
+    .dataButton {
+      @include centerDiv(row);
+      justify-content: space-evenly;
+      button {
+        width: 100%;
+        padding: 2vmin 0;
+        border: 1px solid white;
+        background-color: white;
+        color: $main;
+        font-weight: bold;
+        transition: all 0.6s;
+        border-radius: 10px;
+        &:hover {
+          cursor: pointer;
+          background-color: transparent;
+          color: white;
+        }
+      }
+      a {
+        color: white;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}

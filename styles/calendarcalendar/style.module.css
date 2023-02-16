@@ -1,0 +1,108 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.container .calendar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10vmin 0;
+}
+.container .monday,
+.container .tuesday,
+.container .wednesday,
+.container .thursday,
+.container .friday {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container .monday button,
+.container .tuesday button,
+.container .wednesday button,
+.container .thursday button,
+.container .friday button {
+  width: 40%;
+  background-color: #005b3f;
+  color: white;
+  padding: 4vmin 0 4vmin 3vmin;
+  border: none;
+  font-weight: bold;
+  transition: all 0.6s;
+  border: 1px solid #005b3f;
+  font-size: 20px;
+}
+.container .monday button:hover,
+.container .tuesday button:hover,
+.container .wednesday button:hover,
+.container .thursday button:hover,
+.container .friday button:hover {
+  background-color: transparent;
+  color: #005b3f;
+  cursor: pointer;
+}
+.container .monday .days,
+.container .tuesday .days,
+.container .wednesday .days,
+.container .thursday .days,
+.container .friday .days {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid #005b3f;
+  width: 40%;
+  margin-bottom: 3vmin;
+}
+.container .monday .days .day,
+.container .tuesday .days .day,
+.container .wednesday .days .day,
+.container .thursday .days .day,
+.container .friday .days .day {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2vmin 0;
+  transition: all 0.6s;
+  font-weight: bolder;
+  font-size: 15px;
+  background-color: transparent;
+  color: #005b3f;
+  border: none;
+}
+.container .monday .days .day:hover,
+.container .tuesday .days .day:hover,
+.container .wednesday .days .day:hover,
+.container .thursday .days .day:hover,
+.container .friday .days .day:hover {
+  background-color: #005b3f;
+  color: white;
+}
+.container .monday .days button:last-child,
+.container .tuesday .days button:last-child,
+.container .wednesday .days button:last-child,
+.container .thursday .days button:last-child,
+.container .friday .days button:last-child {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2vmin 0;
+  transition: all 0.6s;
+  font-weight: bolder;
+  font-size: 15px;
+  background-color: #005b3f;
+  color: white;
+  border: none;
+}/*# sourceMappingURL=style.module.css.map */
