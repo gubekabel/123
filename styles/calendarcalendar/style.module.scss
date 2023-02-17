@@ -5,6 +5,32 @@
   .calendar {
     @include centerDiv(column);
     padding: 10vmin 0;
+    .subjectDisplay {
+      @include centerDiv(column);
+      background-color: $main;
+      width: auto;
+      padding: 5vmin 10vmin;
+      color: white;
+      border-radius: 5px;
+      h3 {
+        margin: 1vmin 0;
+      }
+      button {
+        margin-top: 5vmin;
+        width: 80%;
+        padding: 1vmin 0;
+        border: 1px solid white;
+        border-radius: 3px;
+        font-weight: bold;
+        transition: all 0.6s;
+        color: $main;
+        &:hover {
+          background-color: transparent;
+          color: white;
+          cursor: pointer;
+        }
+      }
+    }
   }
   .monday,
   .tuesday,

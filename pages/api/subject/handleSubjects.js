@@ -6,7 +6,7 @@ export default async function HandleSubjectsPage(req, res) {
     try {
       let { userId, id, day, name, timeStart, timeEnd, room, teacher } =
         req.body;
-
+      console.log(userId, id, day);
       let dbInstance = doc(
         db,
         `userCalendar/${userId}/days/${day}/subjects/${id}`
