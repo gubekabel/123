@@ -105,7 +105,6 @@ export default function CalendarPage(props) {
   if (subjectAdder) {
     return <SubjectAdderForm id={newSubjectId}></SubjectAdderForm>;
   }
-  console.log(days);
   return (
     <div className={styles.container}>
       <div className={styles.calendar}>

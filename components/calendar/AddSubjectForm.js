@@ -14,7 +14,6 @@ export default function SubjectAdderForm(props) {
 
   async function addRestaurant(e) {
     e.preventDefault();
-    console.log(parseInt(id.split("_")[1]), days[parseInt(id.split("_")[1])]);
     let response = await fetch("/api/subject/handleSubjects", {
       method: "POST",
       headers: {

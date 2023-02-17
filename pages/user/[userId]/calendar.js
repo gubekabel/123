@@ -4,15 +4,17 @@ import { useRouter } from "next/router";
 import CalendarComponent from "../../../components/calendar/CalendarComponent";
 import styles from "../../../styles/style.module.css";
 import { getAllUserId } from "../../../lib/userData/firebase";
-import { axios } from "axios";
-import { cheerio } from "cheerio";
+import axios from "axios";
+import cheerio from "cheerio";
 import LoaderPage from "./../../../ui/Loader";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
+import { getSubLines } from "./../../../lib/subs/GetSubLines";
 
 export default function CalendarPage(props) {
   let [isLoading, setIsLoading] = useState(true);
   let { logout, user } = useAuth();
+  let { todayPageData, tomorrowPageData, error } = props;
 
   useEffect(() => {
     if (user.id != router.query.userId) {
@@ -64,7 +66,7 @@ export async function getStaticProps() {
         todayPageData: $(".live.today tbody").text(),
         tomorrowPageData: $(".live.tomorrow tbody").text()
       },
-      revalidate: 3600
+      revalidate: 1200
     };
   } catch (error) {
     return {
@@ -73,7 +75,7 @@ export async function getStaticProps() {
         tomorrowPageData: [],
         error: error.message
       },
-      revalidate: 3600
+      revalidate: 1200
     };
   }
 }
