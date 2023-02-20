@@ -4,16 +4,19 @@ import LoaderPage from "./../../ui/Loader";
 import { useRouter } from "next/router";
 import { getUserData } from "../../lib/userData/firebase";
 import SubjectAdderForm from "./AddSubjectForm";
+import { getSubLines } from "./../../lib/subs/GetSubLines";
 
 export default function CalendarPage(props) {
   let router = useRouter();
   let [days, setDays] = useState([]);
-  let { subs, tomorrowSubs } = props;
+  let { todayPageData, tomorrowPageData } = props;
+  todayPageData = getSubLines(todayPageData);
+  tomorrowPageData = getSubLines(tomorrowPageData);
+
   let [isLoading, setIsLoading] = useState(true);
-  let [idToDetermineSubject, setIdToDetermineSubject] = useState("");
-  let isClassSubbed = false;
   let [monday, setMonday] = useState(false);
   let [tuesday, setTuesday] = useState(false);
+  let [isSubbed, setIsSubbed] = useState(false);
   let [wednesday, setWednesday] = useState(false);
   let [thursday, setThursday] = useState(false);
   let [friday, setFriday] = useState(false);
@@ -22,22 +25,36 @@ export default function CalendarPage(props) {
   let [userClass, setUserClass] = useState("");
   let [subjectAdder, setSubjectAdder] = useState(false);
   let [newSubjectId, setNewSubjectId] = useState("");
-  let hours = [
-    "07:00",
-    "08:00",
-    "09:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-    "18:00",
-    "19:00",
-    "20:00"
-  ];
+  let userClassNumber = userClass.split(".")[0];
+  let userClassLetter = userClass.split(".")[1];
+  todayPageData.map((line, i) => {
+    if (
+      line.class.split(".")[0] != userClassNumber ||
+      !line.class
+        .trim()
+        .toLowerCase()
+        .split(".")[1]
+        .includes(userClassLetter.trim().toLowerCase()) ||
+      (userClassLetter === "B" &&
+        line.class.trim().toUpperCase().split(".")[1] === "IB")
+    ) {
+      delete todayPageData[i];
+    }
+  });
+  tomorrowPageData.map((line, i) => {
+    if (
+      line.class.split(".")[0] != userClassNumber ||
+      !line.class
+        .trim()
+        .toLowerCase()
+        .split(".")[1]
+        .includes(userClassLetter.trim().toLowerCase()) ||
+      (userClassLetter === "B" &&
+        line.class.trim().toUpperCase().split(".")[1] === "IB")
+    ) {
+      delete tomorrowPageData[i];
+    }
+  });
 
   async function getCalendarData() {
     try {
@@ -87,11 +104,15 @@ export default function CalendarPage(props) {
     }
   }
 
-  function displaySubject(id) {
-    let dayId = parseInt(id.split("_")[1]);
-    let subject = days[dayId].filter((day) => day.id === id);
-    setIsSubjectDisplay((prev) => !prev);
-    setSubjectToDisplay(subject[0]);
+  function displaySubject(id, isSubbed) {
+    try {
+      let dayId = parseInt(id.split("_")[1]);
+      console.log(dayId, days[dayId], id);
+      let subject = days[dayId].filter((day) => day.id === id);
+      setIsSubjectDisplay((prev) => !prev);
+      setSubjectToDisplay(subject[0]);
+      setIsSubbed(isSubbed);
+    } catch (error) {}
   }
 
   if (isLoading) {
@@ -110,19 +131,39 @@ export default function CalendarPage(props) {
       <div className={styles.calendar}>
         {isSubjectDisplay ? (
           <>
-            <div className={styles.subjectDisplay}>
-              <h3>{subjectToDisplay.name}</h3>
-              <h3>{`${subjectToDisplay.timeStart} - ${subjectToDisplay.timeEnd}`}</h3>
-              <h3>{subjectToDisplay.room}</h3>
-              <h3>{subjectToDisplay.teacher}</h3>
-              <button
-                onClick={() => {
-                  setIsSubjectDisplay(false);
-                }}
-              >
-                Vissza
-              </button>
-            </div>
+            {isSubbed ? (
+              <>
+                <div className={`${styles.subjectDisplay} ${styles.subbed}`}>
+                  <h3>{subjectToDisplay.name}</h3>
+                  <h3>{`${subjectToDisplay.timeStart} - ${subjectToDisplay.timeEnd}`}</h3>
+                  <h3>{subjectToDisplay.room}</h3>
+                  <h3>{subjectToDisplay.teacher}</h3>
+                  <button
+                    onClick={() => {
+                      setIsSubjectDisplay(false);
+                    }}
+                  >
+                    Vissza
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={styles.subjectDisplay}>
+                  <h3>{subjectToDisplay.name}</h3>
+                  <h3>{`${subjectToDisplay.timeStart} - ${subjectToDisplay.timeEnd}`}</h3>
+                  <h3>{subjectToDisplay.room}</h3>
+                  <h3>{subjectToDisplay.teacher}</h3>
+                  <button
+                    onClick={() => {
+                      setIsSubjectDisplay(false);
+                    }}
+                  >
+                    Vissza
+                  </button>
+                </div>
+              </>
+            )}
           </>
         ) : (
           <>
@@ -137,23 +178,67 @@ export default function CalendarPage(props) {
               {monday ? (
                 <div className={styles.days} id="0">
                   {days[0].map((subject, i) => {
+                    let date = new Date();
+                    let isSubjectSubbed = false;
+                    if (date.getDay() === 1) {
+                      todayPageData.map((sub) => {
+                        if (
+                          sub.classNumber === subject.id.split("_")[0] &&
+                          subject.name.toLowerCase() ===
+                            sub.subject.toLowerCase()
+                        ) {
+                          isSubjectSubbed = true;
+                          subject.name = sub.subject;
+                          subject.room = sub.roomNumber;
+                          subject.teacher = sub.substituteTeacher;
+                          subject.note = sub.note;
+                        }
+                      });
+                    }
                     return (
-                      <button
-                        className={styles.day}
-                        id={`${i}_0`}
-                        key={i}
-                        onClick={(e) => {
-                          displaySubject(e.target.id);
-                        }}
-                      >
-                        {subject.name ? (
+                      <>
+                        {isSubjectSubbed ? (
                           <>
-                            <h5>{subject.name}</h5>
+                            <button
+                              onClick={(e) => {
+                                console.log(e.target.id);
+                                displaySubject(e.target.id, true);
+                              }}
+                              className={`${styles.day} ${styles.subbed}`}
+                              id={`${i}_0`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
                           </>
                         ) : (
-                          <></>
+                          <>
+                            <button
+                              onClick={(e) => {
+                                console.log(e.target.id);
+                                displaySubject(e.target.id, false);
+                              }}
+                              className={styles.day}
+                              id={`${i}_0`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
+                          </>
                         )}
-                      </button>
+                      </>
                     );
                   })}
                   <button
@@ -181,23 +266,79 @@ export default function CalendarPage(props) {
               {tuesday ? (
                 <div className={styles.days}>
                   {days[1].map((subject, i) => {
+                    let date = new Date();
+                    let isSubjectSubbed = false;
+                    if (date.getDay() === 2) {
+                      todayPageData.map((sub) => {
+                        if (
+                          sub.classNumber === subject.id.split("_")[0] &&
+                          subject.name.toLowerCase() ===
+                            sub.subject.toLowerCase()
+                        ) {
+                          isSubjectSubbed = true;
+                          subject.name = sub.subject;
+                          subject.room = sub.roomNumber;
+                          subject.teacher = sub.substituteTeacher;
+                          subject.note = sub.note;
+                        }
+                      });
+                    } else if (date.getDay() + 1 === 2) {
+                      tomorrowPageData.map((sub) => {
+                        if (
+                          sub.classNumber === subject.id.split("_")[0] &&
+                          subject.name.toLowerCase() ===
+                            sub.subject.toLowerCase()
+                        ) {
+                          isSubjectSubbed = true;
+                          subject.name = sub.subject;
+                          subject.room = sub.roomNumber;
+                          subject.teacher = sub.substituteTeacher;
+                          subject.note = sub.note;
+                        }
+                      });
+                    }
                     return (
-                      <button
-                        onClick={(e) => {
-                          displaySubject(e.target.id);
-                        }}
-                        className={styles.day}
-                        id={`${i}_1`}
-                        key={i}
-                      >
-                        {subject.name ? (
+                      <>
+                        {isSubjectSubbed ? (
                           <>
-                            <h5>{subject.name}</h5>
+                            <button
+                              onClick={(e) => {
+                                displaySubject(e.target.id, true);
+                              }}
+                              className={`${styles.day} ${styles.subbed}`}
+                              id={`${i}_1`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
                           </>
                         ) : (
-                          <></>
+                          <>
+                            <button
+                              onClick={(e) => {
+                                displaySubject(e.target.id, false);
+                              }}
+                              className={styles.day}
+                              id={`${i}_1`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
+                          </>
                         )}
-                      </button>
+                      </>
                     );
                   })}
                   <button
@@ -225,23 +366,79 @@ export default function CalendarPage(props) {
               {wednesday ? (
                 <div className={styles.days}>
                   {days[2].map((subject, i) => {
+                    let date = new Date();
+                    let isSubjectSubbed = false;
+                    if (date.getDay() === 3) {
+                      todayPageData.map((sub) => {
+                        if (
+                          sub.classNumber === subject.id.split("_")[0] &&
+                          subject.name.toLowerCase() ===
+                            sub.subject.toLowerCase()
+                        ) {
+                          isSubjectSubbed = true;
+                          subject.name = sub.subject;
+                          subject.room = sub.roomNumber;
+                          subject.teacher = sub.substituteTeacher;
+                          subject.note = sub.note;
+                        }
+                      });
+                    } else if (date.getDay() + 1 === 3) {
+                      tomorrowPageData.map((sub) => {
+                        if (
+                          sub.classNumber === subject.id.split("_")[0] &&
+                          subject.name.toLowerCase() ===
+                            sub.subject.toLowerCase()
+                        ) {
+                          isSubjectSubbed = true;
+                          subject.name = sub.subject;
+                          subject.room = sub.roomNumber;
+                          subject.teacher = sub.substituteTeacher;
+                          subject.note = sub.note;
+                        }
+                      });
+                    }
                     return (
-                      <button
-                        onClick={(e) => {
-                          displaySubject(e.target.id);
-                        }}
-                        className={styles.day}
-                        id={`${i}_2`}
-                        key={i}
-                      >
-                        {subject.name ? (
+                      <>
+                        {isSubjectSubbed ? (
                           <>
-                            <h5>{subject.name}</h5>
+                            <button
+                              onClick={(e) => {
+                                displaySubject(e.target.id, true);
+                              }}
+                              className={`${styles.day} ${styles.subbed}`}
+                              id={`${i}_2`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
                           </>
                         ) : (
-                          <></>
+                          <>
+                            <button
+                              onClick={(e) => {
+                                displaySubject(e.target.id, false);
+                              }}
+                              className={styles.day}
+                              id={`${i}_2`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
+                          </>
                         )}
-                      </button>
+                      </>
                     );
                   })}
                   <button
@@ -269,23 +466,79 @@ export default function CalendarPage(props) {
               {thursday ? (
                 <div className={styles.days}>
                   {days[3].map((subject, i) => {
+                    let date = new Date();
+                    let isSubjectSubbed = false;
+                    if (date.getDay() === 4) {
+                      todayPageData.map((sub) => {
+                        if (
+                          sub.classNumber === subject.id.split("_")[0] &&
+                          subject.name.toLowerCase() ===
+                            sub.subject.toLowerCase()
+                        ) {
+                          isSubjectSubbed = true;
+                          subject.name = sub.subject;
+                          subject.room = sub.roomNumber;
+                          subject.teacher = sub.substituteTeacher;
+                          subject.note = sub.note;
+                        }
+                      });
+                    } else if (date.getDay() + 1 === 3) {
+                      tomorrowPageData.map((sub) => {
+                        if (
+                          sub.classNumber === subject.id.split("_")[0] &&
+                          subject.name.toLowerCase() ===
+                            sub.subject.toLowerCase()
+                        ) {
+                          isSubjectSubbed = true;
+                          subject.name = sub.subject;
+                          subject.room = sub.roomNumber;
+                          subject.teacher = sub.substituteTeacher;
+                          subject.note = sub.note;
+                        }
+                      });
+                    }
                     return (
-                      <button
-                        onClick={(e) => {
-                          displaySubject(e.target.id);
-                        }}
-                        className={styles.day}
-                        id={`${i}_3`}
-                        key={i}
-                      >
-                        {subject.name ? (
+                      <>
+                        {isSubjectSubbed ? (
                           <>
-                            <h5>{subject.name}</h5>
+                            <button
+                              onClick={(e) => {
+                                displaySubject(e.target.id, true);
+                              }}
+                              className={`${styles.day} ${styles.subbed}`}
+                              id={`${i}_3`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
                           </>
                         ) : (
-                          <></>
+                          <>
+                            <button
+                              onClick={(e) => {
+                                displaySubject(e.target.id, false);
+                              }}
+                              className={styles.day}
+                              id={`${i}_3`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
+                          </>
                         )}
-                      </button>
+                      </>
                     );
                   })}
                   <button
@@ -313,23 +566,65 @@ export default function CalendarPage(props) {
               {friday ? (
                 <div className={styles.days}>
                   {days[4].map((subject, i) => {
+                    let date = new Date();
+                    let isSubjectSubbed = false;
+                    if (date.getDay() === 5) {
+                      todayPageData.map((sub) => {
+                        if (
+                          sub.classNumber === subject.id.split("_")[0] &&
+                          subject.name.toLowerCase() ===
+                            sub.subject.toLowerCase()
+                        ) {
+                          isSubjectSubbed = true;
+                          subject.name = sub.subject;
+                          subject.room = sub.roomNumber;
+                          subject.teacher = sub.substituteTeacher;
+                          subject.note = sub.note;
+                        }
+                      });
+                    }
                     return (
-                      <button
-                        onClick={(e) => {
-                          displaySubject(e.target.id);
-                        }}
-                        className={styles.day}
-                        id={`${i}_4`}
-                        key={i}
-                      >
-                        {subject.name ? (
+                      <>
+                        {isSubjectSubbed ? (
                           <>
-                            <h5>{subject.name}</h5>
+                            <button
+                              onClick={(e) => {
+                                displaySubject(e.target.id, true);
+                              }}
+                              className={`${styles.day} ${styles.subbed}`}
+                              id={`${i}_4`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
                           </>
                         ) : (
-                          <></>
+                          <>
+                            <button
+                              onClick={(e) => {
+                                displaySubject(e.target.id, false);
+                              }}
+                              className={styles.day}
+                              id={`${i}_4`}
+                              key={i}
+                            >
+                              {subject.name ? (
+                                <>
+                                  <h5>{subject.name}</h5>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </button>
+                          </>
                         )}
-                      </button>
+                      </>
                     );
                   })}
                   <button

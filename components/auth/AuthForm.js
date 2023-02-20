@@ -43,7 +43,26 @@ export default function AuthForm(props) {
   }
 
   if (haveLoggedIn && user) {
-    router.push(`/user/${user.id}/profile`);
+    if (!props.isLogin) {
+      fetch("/api/user/userSetup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: user.id
+        })
+      })
+        .then(() => {
+          router.push(`/user/${user.id}/profile`);
+        })
+        .catch((err) => {
+          console.error(err);
+          setError(err.message);
+        });
+    } else {
+      router.push(`/user/${user.id}/profile`);
+    }
   }
 
   if (isLoading) {

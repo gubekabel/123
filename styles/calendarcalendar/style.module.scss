@@ -73,6 +73,10 @@
           color: white;
         }
       }
+      .subbed {
+        background-color: $sub;
+        color: white;
+      }
       button {
         &:last-child {
           @include centerDiv(column);

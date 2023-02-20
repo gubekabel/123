@@ -118,6 +118,14 @@
   background-color: #005b3f;
   color: white;
 }
+.container .monday .days .subbed,
+.container .tuesday .days .subbed,
+.container .wednesday .days .subbed,
+.container .thursday .days .subbed,
+.container .friday .days .subbed {
+  background-color: #00b7ff;
+  color: white;
+}
 .container .monday .days button:last-child,
 .container .tuesday .days button:last-child,
 .container .wednesday .days button:last-child,

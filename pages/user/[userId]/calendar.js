@@ -12,19 +12,17 @@ import { useAuth } from "../../../context/AuthContext";
 import { getSubLines } from "./../../../lib/subs/GetSubLines";
 
 export default function CalendarPage(props) {
-  let [isLoading, setIsLoading] = useState(true);
+  let [isLoading, setIsLoading] = useState(false);
   let { logout, user } = useAuth();
   let { todayPageData, tomorrowPageData, error } = props;
 
-  useEffect(() => {
-    if (user.id != router.query.userId) {
-      logout();
-    } else {
-      setIsLoading(false);
-    }
-  }, []);
-
   let router = useRouter();
+
+  if (error) {
+    <div className={styles.container}>
+      <h2>{`An error happened: ${error.message}`}</h2>
+    </div>;
+  }
 
   if (isLoading) {
     return <LoaderPage></LoaderPage>;
@@ -38,7 +36,10 @@ export default function CalendarPage(props) {
         keywords="maxt, calendar"
       ></CustomHead>
       <Topnav userId={router.query.userId}></Topnav>
-      <CalendarComponent props={props}></CalendarComponent>
+      <CalendarComponent
+        todayPageData={todayPageData}
+        tomorrowPageData={tomorrowPageData}
+      ></CalendarComponent>
     </div>
   );
 }
