@@ -1,7 +1,7 @@
 import styles from "../../styles/profileintro/style.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import LoaderPage from "./../../ui/Loader";
+import LoaderPage from "./../../ui/LoadingPage";
 import { getSubLines } from "./../../lib/subs/GetSubLines";
 import { getUserData } from "../../lib/userData/firebase";
 

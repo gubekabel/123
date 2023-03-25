@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 import styles from "../../styles/authform/style.module.css";
-import LoaderPage from "./../../ui/Loader";
+import LoaderPage from "./../../ui/LoadingPage";
 
 export default function AuthForm(props) {
   let [email, setEmail] = useState("");

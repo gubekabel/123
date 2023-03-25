@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import styles from "../../styles/profiledata/style.module.css";
-import LoaderPage from "./../../ui/Loader";
+import LoaderPage from "./../../ui/LoadingPage";
 
 export default function ProfileDataPage() {
   let [userClass, setUserClass] = useState("");

@@ -7,16 +7,21 @@
   justify-content: flex-start;
   height: 15vh;
   background-color: $main;
+
   .imgLink {
     width: 20%;
   }
+
   a {
     @include centerDiv(row);
     width: 10%;
     text-decoration: none;
+    color: white;
+
     .img {
       @include centerDiv(row);
       width: auto;
+
       p {
         text-align: center;
         text-transform: uppercase;
@@ -26,18 +31,22 @@
         font-size: 20px;
       }
     }
+
     svg {
       width: 20px;
       color: white;
     }
+
     &:hover {
       cursor: pointer;
     }
   }
+
   div {
     width: 40%;
     height: 100%;
   }
+
   button {
     @include centerDiv(row);
     width: auto;
@@ -47,10 +56,12 @@
     transition: all 0.6s;
     color: white;
     border-radius: 3px;
+
     svg {
       width: 20px;
       color: inherit;
     }
+
     &:hover {
       background-color: white;
       color: $main;
@@ -63,6 +74,7 @@
     .imgLink {
       width: 30%;
     }
+
     a {
       width: 20%;
     }

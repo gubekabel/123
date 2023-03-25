@@ -1,4 +1,4 @@
-import CustomHead from "./../../../ui/CustomHead";
+import MyHead from "../../../ui/MyHead";
 import Topnav from "./../../../ui/topnav";
 import { useRouter } from "next/router";
 import CalendarComponent from "../../../components/calendar/CalendarComponent";
@@ -6,10 +6,9 @@ import styles from "../../../styles/style.module.css";
 import { getAllUserId } from "../../../lib/userData/firebase";
 import axios from "axios";
 import cheerio from "cheerio";
-import LoaderPage from "./../../../ui/Loader";
-import { useEffect, useState } from "react";
+import LoaderPage from "./../../../ui/LoadingPage";
+import { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
-import { getSubLines } from "./../../../lib/subs/GetSubLines";
 
 export default function CalendarPage(props) {
   let [isLoading, setIsLoading] = useState(false);
@@ -25,28 +24,28 @@ export default function CalendarPage(props) {
   }
 
   if (isLoading) {
-    return <LoaderPage></LoaderPage>;
+    return <LoaderPage />;
   }
 
   return (
     <div className={styles.container}>
-      <CustomHead
-        title="Maxt Calendar"
-        description="Maxt Calendar Page."
-        keywords="maxt, calendar"
-      ></CustomHead>
-      <Topnav userId={router.query.userId}></Topnav>
+      <MyHead
+        title="Calendar"
+        description="Calendar Page."
+        keywords="calendar"
+      />
+      <Topnav userId={router.query.userId} />
       <CalendarComponent
         todayPageData={todayPageData}
         tomorrowPageData={tomorrowPageData}
-      ></CalendarComponent>
+      />
     </div>
   );
 }
 
 export async function getStaticPaths() {
   let response = await getAllUserId();
-  let paths = response.map((path) => ({
+  let paths = response.map(path => ({
     params: {
       userId: path.id
     }

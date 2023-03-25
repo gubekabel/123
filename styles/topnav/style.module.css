@@ -21,6 +21,7 @@
   flex-direction: row;
   width: 10%;
   text-decoration: none;
+  color: white;
 }
 .container a .img {
   width: 100%;

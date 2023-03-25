@@ -1,6 +1,6 @@
 import styles from "../../styles/calendarcalendar/style.module.css";
 import { useEffect, useState } from "react";
-import LoaderPage from "./../../ui/Loader";
+import LoaderPage from "../../ui/LoadingPage";
 import { useRouter } from "next/router";
 import { getUserData } from "../../lib/userData/firebase";
 import SubjectAdderForm from "./AddSubjectForm";

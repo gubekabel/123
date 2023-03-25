@@ -1,9 +1,9 @@
-import CustomHead from "./../../../ui/CustomHead";
+import MyHead from "../../../ui/MyHead";
 import Topnav from "./../../../ui/topnav";
 import ProfilePageComponent from "./../../../components/profile/Profile";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import LoaderPage from "../../../ui/Loader";
+import { useState } from "react";
+import LoaderPage from "../../../ui/LoadingPage";
 import { useAuth } from "../../../context/AuthContext";
 import styles from "../../../styles/style.module.css";
 import { getAllUserId } from "../../../lib/userData/firebase";
@@ -21,28 +21,28 @@ export default function ProfilePage(props) {
   }
 
   if (isLoading) {
-    return <LoaderPage></LoaderPage>;
+    return <LoaderPage />;
   }
 
   return (
     <div className={styles.container}>
-      <CustomHead
-        title="Maxt Profile"
-        description="Maxt Profile Page for Maxt users."
-        keywords="maxt, profile"
-      ></CustomHead>
-      <Topnav userId={router.query.userId}></Topnav>
+      <MyHead
+        title="Profile"
+        description="Profile Page"
+        keywords="profile"
+      />
+      <Topnav userId={router.query.userId} />
       <ProfilePageComponent
         todayPageData={todayPageData}
         tomorrowPageData={tomorrowPageData}
-      ></ProfilePageComponent>
+      />
     </div>
   );
 }
 
 export async function getStaticPaths() {
   let response = await getAllUserId();
-  let paths = response.map((path) => ({
+  let paths = response.map(path => ({
     params: {
       userId: path.id
     }

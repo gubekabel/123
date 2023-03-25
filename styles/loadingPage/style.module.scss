@@ -1,0 +1,6 @@
+@import "../uniform";
+
+.container {
+  @include centerDiv(row);
+  width: auto;
+}
